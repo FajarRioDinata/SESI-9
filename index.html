@@ -399,10 +399,37 @@ void main() {
       </div>
     </div>
 
+    <!-- Slide 8: Praktik 1- Utilities untuk Dart Types (halaman 8) -->
+    <div class="slide-card">
+      <div class="slide-header">
+        <div class="slide-title"><span class="slide-num">Slide 8</span> Praktik 1- Utilities untuk Dart Types</div>
+        <div class="slide-desc">Handle nullable dengan aman</div>
+      </div>
+      <div class="slide-body">
+        <div class="explanation">
+          <i class="fas fa-shield-alt"></i> <strong>Penjelasan:</strong> Extension pada tipe nullable (<code>String?</code>) memungkinkan kita memanggil method dengan aman tanpa harus melakukan null check secara manual, misalnya <code>orEmpty()</code> atau <code>isNullOrEmpty</code>.
+        </div>
+        <div class="code-block">
+          <pre>extension NullableStringExtensions on String? {
+  String orEmpty() => this ?? '';
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
+  bool get isNotNullOrEmpty => !isNullOrEmpty;
+  String withDefault(String defaultValue) => this ?? defaultValue;
+}
+
+void main() {
+  String? name;
+  print(name.isNullOrEmpty);           // true
+  print(name.withDefault('Guest'));    // 'Guest'
+}</pre>
+        </div>
+      </div>
+    </div>
+
     <!-- Slide 9: Generic Extensions (halaman 10) List<T> chunk, distinct, getOrNull -->
     <div class="slide-card">
       <div class="slide-header">
-        <div class="slide-title"><span class="slide-num">Slide 9</span> 🔁 Generic Extensions</div>
+        <div class="slide-title"><span class="slide-num">Slide 9</span> 🔁 9 Generic Extensions</div>
         <div class="slide-desc">List&lt;T&gt; dengan method reusable</div>
       </div>
       <div class="slide-body">
@@ -434,10 +461,10 @@ void main() {
       </div>
     </div>
 
-    <!-- Slide 8: Extension tanpa nama (halaman 11) -->
+    <!-- Slide 10: Unnamed Extensionsa (halaman 11) -->
     <div class="slide-card">
       <div class="slide-header">
-        <div class="slide-title"><span class="slide-num">Slide 8</span> 🏷️ Extension Tanpa Nama</div>
+        <div class="slide-title"><span class="slide-num">Slide 10</span> 🏷️ Unnamed Extensions</div>
         <div class="slide-desc">Hanya untuk library yang sama</div>
       </div>
       <div class="slide-body">
@@ -460,10 +487,10 @@ void main() {
       </div>
     </div>
 
-    <!-- Slide 9: Konflik Nama Extension (halaman 12) -->
+    <!-- Slide 11: Konflik Nama Extension (halaman 12) -->
     <div class="slide-card">
       <div class="slide-header">
-        <div class="slide-title"><span class="slide-num">Slide 9</span> ⚠️ Konflik Nama Extension</div>
+        <div class="slide-title"><span class="slide-num">Slide 11</span> ⚠️ Konflik Nama Extension</div>
         <div class="slide-desc">Mengatasi ambiguitas method</div>
       </div>
       <div class="slide-body">
