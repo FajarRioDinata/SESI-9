@@ -302,10 +302,343 @@ void main() {
       </div>
     </div>
 
-    <!-- Slide 5: Tipe yang Didukung (halaman 7) built-in, custom, generic, nullable -->
+    <!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title> Slide 5: Sintaks Extension Methods | Dart</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #b980ff 0%, #9b4dff 100%);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    /* Kartu utama */
+    .slide-card {
+      max-width: 1100px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2rem;
+      box-shadow: 0 30px 45px -20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(155, 77, 255, 0.2);
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .slide-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* Header dengan identitas */
+    .identity-header {
+      background: #2b1a46;
+      padding: 1rem 2rem;
+      border-bottom: 4px solid #ffdb6e;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .identity-header h2 {
+      color: #f3e9ff;
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: 0.3px;
+    }
+
+    .identity-header h2 i {
+      margin-right: 10px;
+      color: #ffdb6e;
+    }
+
+    .slide-badge {
+      background: #7a3ed6;
+      padding: 0.3rem 1rem;
+      border-radius: 60px;
+      color: white;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    /* konten utama slide */
+    .slide-content {
+      padding: 2rem 2rem 2.2rem 2rem;
+    }
+
+    .slide-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+      border-left: 6px solid #9b4dff;
+      padding-left: 1.2rem;
+    }
+
+    .slide-title h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2d1a4a;
+      letter-spacing: -0.3px;
+    }
+
+    .slide-title i {
+      font-size: 2rem;
+      color: #9b4dff;
+      background: #f0e8ff;
+      padding: 8px;
+      border-radius: 1rem;
+    }
+
+    /* area penjelasan sintaks */
+    .syntax-container {
+      background: #faf6ff;
+      border-radius: 1.5rem;
+      padding: 1.4rem 1.8rem;
+      margin-bottom: 2rem;
+      border: 1px solid #e2d0ff;
+    }
+
+    .syntax-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #4b2b82;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .syntax-code {
+      background: #1e1a2f;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.9rem;
+      color: #e3d6ff;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.5;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+    }
+
+    .explanation-box {
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1.2rem 1.5rem;
+      margin: 1.2rem 0 1.8rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      border: 1px solid #eeddff;
+    }
+
+    .explanation-box p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #2e2346;
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight {
+      background: #eee5ff;
+      padding: 0.15rem 0.4rem;
+      border-radius: 10px;
+      font-family: monospace;
+      font-weight: 500;
+      color: #6a3ac2;
+    }
+
+    .full-example {
+      background: #fefcf5;
+      border-radius: 1.2rem;
+      border: 1px solid #efe2ff;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .full-example-header {
+      background: #e5d5ff;
+      padding: 0.7rem 1.2rem;
+      font-weight: 700;
+      color: #351c63;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+
+    .code-block {
+      background: #1e1a2f;
+      padding: 1rem 1.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #efecff;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .note-tip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f0eaff;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1rem;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #351d69;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to right, #dccdff, transparent);
+    }
+
+    footer {
+      background: #f8f2ff;
+      padding: 0.8rem 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #6b479e;
+      border-top: 1px solid #e8dbff;
+    }
+
+    @media (max-width: 680px) {
+      body {
+        padding: 1rem;
+      }
+      .slide-content {
+        padding: 1.5rem;
+      }
+      .syntax-code {
+        font-size: 0.75rem;
+      }
+      .slide-title h1 {
+        font-size: 1.4rem;
+      }
+      .identity-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="slide-card">
+  <div class="identity-header">
+    <h2><i class="fas fa-user-graduate"></i> Fajar Rio Dinata | NIM: 251410025</h2>
+    <div class="slide-badge"><i class="fas fa-code"></i> Dart Extension Methods</div>
+  </div>
+
+  <div class="slide-content">
+    <div class="slide-title">
+      <i class="fas fa-puzzle-piece"></i>
+      <h1>📘 Sintaks Extension Methods</h1>
+    </div>
+
+    <!-- Penjelasan ringkas -->
+    <div class="explanation-box">
+      <p><i class="fas fa-info-circle" style="color:#9b4dff; margin-right: 6px;"></i> <strong>Extension methods</strong> memungkinkan kita menambahkan fungsionalitas baru ke tipe yang sudah ada (built-in atau custom) tanpa harus mewarisi atau mengubah kode asli. Sintaks dasarnya adalah:</p>
+      <p style="margin-top: 10px;"><span class="highlight">extension NamaExtension on TipeTarget { ... }</span> — Di dalam blok, kita bisa mendefinisikan <strong>method, getter, setter, maupun operator</strong>.</p>
+    </div>
+
+    <!-- Sintaks umum -->
+    <div class="syntax-container">
+      <div class="syntax-title">
+        <i class="fas fa-terminal"></i> Pola Dasar
+      </div>
+      <div class="syntax-code">
+        <pre>extension &lt;NamaExtension&gt; on &lt;TipeTarget&gt; {
+    // Method, getter, setter, operator
+    ReturnType methodName(Parameters) { ... }
+    ReturnType get propertyName => ...;
+    void set propertyName(Value) => ...;
+    ReturnType operator +(Parameters) { ... }
+}</pre>
+      </div>
+    </div>
+
+    <!-- Contoh lengkap DateTimeExtensions -->
+    <div class="full-example">
+      <div class="full-example-header">
+        <i class="fab fa-dart" style="font-size: 1.1rem;"></i> Contoh lengkap: Extension pada DateTime
+      </div>
+      <div class="code-block">
+        <pre>extension DateTimeExtensions on DateTime {
+    // Method: mengembalikan format tanggal dd/mm/yyyy
+    String toFormattedString() {
+        return '$day/$month/$year';
+    }
+    
+    // Getter: mengecek apakah tanggal ini adalah hari ini
+    bool get isToday {
+        var now = DateTime.now();
+        return year == now.year &&
+               month == now.month &&
+               day == now.day;
+    }
+    
+    // Operator overloading: menambah Duration dengan operator +
+    DateTime operator +(Duration duration) {
+        return add(duration);
+    }
+}
+
+void main() {
+    var today = DateTime.now();
+    print(today.toFormattedString());   // contoh: 29/5/2026
+    print(today.isToday);               // true
+    var nextWeek = today + Duration(days: 7);
+    print(nextWeek.toFormattedString());
+}</pre>
+      </div>
+    </div>
+
+    <!-- Penjelasan tambahan -->
+    <div class="note-tip">
+      <i class="fas fa-lightbulb" style="font-size: 1.2rem;"></i>
+      <span><strong>Catatan penting:</strong> Extension tidak bisa mengakses anggota <code>private</code> dari tipe target. Extension hanya menambahkan metode "tambahan", namun tidak mengubah struktur asli objek. Cocok untuk membuat <strong>API yang lebih ekspresif dan natural</strong>.</span>
+    </div>
+    <hr />
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+      <div><i class="fas fa-check-circle" style="color:#6c3fbb;"></i> <strong>Didukung:</strong> method, getter, setter, operator overloading</div>
+      <div><i class="fas fa-code-branch"></i> Bisa digunakan untuk tipe generik, nullable, dan kelas kustom</div>
+    </div>
+  </div>
+  <footer>
+    <i class="fas fa-chalkboard"></i> Sesi 9: Extension Methods — Sintaks dasar dan implementasi pada DateTime
+  </footer>
+</div>
+</body>
+</html>
+
+    <!-- Slide 6: Tipe yang Bisa Di-extend -->
     <div class="slide-card">
       <div class="slide-header">
-        <div class="slide-title"><span class="slide-num">Slide 5</span> 📦 Tipe yang Didukung</div>
+        <div class="slide-title"><span class="slide-num">Slide 6</span> 📦 Tipe yang Didukung</div>
         <div class="slide-desc">Built-in, custom, generic, nullable</div>
       </div>
       <div class="slide-body">
