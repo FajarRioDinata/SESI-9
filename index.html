@@ -410,17 +410,37 @@ void main() {
           <i class="fas fa-shield-alt"></i> <strong>Penjelasan:</strong> Extension pada tipe nullable (<code>String?</code>) memungkinkan kita memanggil method dengan aman tanpa harus melakukan null check secara manual, misalnya <code>orEmpty()</code> atau <code>isNullOrEmpty</code>.
         </div>
         <div class="code-block">
-          <pre>extension NullableStringExtensions on String? {
-  String orEmpty() => this ?? '';
-  bool get isNullOrEmpty => this == null || this!.isEmpty;
-  bool get isNotNullOrEmpty => !isNullOrEmpty;
-  String withDefault(String defaultValue) => this ?? defaultValue;
+          <pre>extension NumberExtensions on num {
+  // Format ke Rupiah
+  String toRupiah() {
+    return 'Rp${toStringAsFixed(0).replaceAllMapped(
+      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+      (match) => '${match[1]}.',
+    )}';
+  }
+
+  // Check jika dalam range
+  bool isBetween(num min, num max) {
+    return this >= min && this <= max;
+  }
+
+  // Pangkat
+  num power(int exponent) {
+    var result = this;
+    for (var i = 1; i < exponent; i++) {
+      result *= this;
+    }
+    return result;
+  }
 }
 
 void main() {
-  String? name;
-  print(name.isNullOrEmpty);           // true
-  print(name.withDefault('Guest'));    // 'Guest'
+  // Penggunaan
+  var price = 1500000;
+
+  print(price.toRupiah());   // 'Rp1.500.000'
+  print(5.isBetween(1, 10)); // true
+  print(2.power(3));         // 8
 }</pre>
         </div>
       </div>
@@ -516,11 +536,145 @@ void main() {
         </div>
       </div>
     </div>
-
-    <!-- Slide 10: Ringkasan & Best Practices (halaman 15) -->
+      
+       <!-- Slide 12: Extennsion untuk Custom Classes (halaman 12) -->
     <div class="slide-card">
       <div class="slide-header">
-        <div class="slide-title"><span class="slide-num">Slide 10</span> 📌 Ringkasan & Best Practices</div>
+        <div class="slide-title"><span class="slide-num">Slide 12</span> Extennsion untuk Custom Classes </div>
+        <div class="slide-desc">Mengatasi ambiguitas method</div>
+      </div>
+      <div class="slide-body">
+        <div class="explanation">
+          <i class="fas fa-code-branch"></i> <strong>Penjelasan:</strong></code>.
+        </div>
+        <div class="code-block">
+          <pre>class Product {
+  final String name;
+  final double price;
+
+  Product(this.name, this.price);
+}
+
+// Extension untuk formatting double ke Rupiah
+extension DoubleRupiahFormatter on double {
+  String toRupiah() {
+    // Convert to integer to handle whole Rupiah amounts without decimals
+    final intValue = toInt();
+
+    // Convert to string
+    String numberString = intValue.toString();
+
+    // Add thousands separators
+    String formattedString = '';
+    int counter = 0;
+    for (int i = numberString.length - 1; i >= 0; i--) {
+      formattedString = numberString[i] + formattedString;
+      counter++;
+      if (counter % 3 == 0 && i != 0) {
+        formattedString = '.' + formattedString;
+      }
+    }
+
+    return 'Rp$formattedString';
+  }
+}
+
+// Extension untuk Product
+extension ProductExtensions on Product {
+  // Method untuk diskon
+  Product withDiscount(double percentage) {
+    var discountedPrice = price * (1 - percentage / 100);
+    return Product(name, discountedPrice);
+  }
+
+  // Format untuk display
+  String get displayInfo => '$name - ${price.toRupiah()}';
+
+  // Check jika mahal
+  bool get isExpensive => price > 1000000;
+}
+
+void main() {
+  // Penggunaan
+  var laptop = Product('Laptop', 1500000);
+  var discounted = laptop.withDiscount(10);
+  print(discounted.displayInfo); // Laptop - Rp1.350.000
+  print(laptop.isExpensive); // true
+
+  var keyboard = Product('Keyboard', 750000);
+  print(keyboard.displayInfo); // Keyboard - Rp750.000
+  print(keyboard.isExpensive); // false
+}</pre>
+        </div>
+      </div>
+    </div>
+
+        <!-- Slide 13: Praktik 2-validator Extensions (halaman 12) -->
+    <div class="slide-card">
+      <div class="slide-header">
+        <div class="slide-title"><span class="slide-num">Slide 13</span> Praktik 2-validator Extensions </div>
+        <div class="slide-desc">Mengatasi ambiguitas method</div>
+      </div>
+      <div class="slide-body">
+        <div class="explanation">
+          <i class="fas fa-code-branch"></i> <strong>Penjelasan:</strong></code>.
+        </div>
+        <div class="code-block">
+          <pre>// Validator extensions untuk berbagai tipe
+extension StringValidators on String {
+  bool get isEmail {
+    return RegExp(r'^[\w\-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(this);
+  }
+
+  bool get isPhoneNumber {
+    return RegExp(r'^[0-9]{10,13}$').hasMatch(this);
+  }
+
+  bool get isStrongPassword {
+    return length >= 8 &&
+        contains(RegExp(r'[A-Z]')) &&
+        contains(RegExp(r'[a-z]')) &&
+        contains(RegExp(r'[0-9]'));
+  }
+
+  bool get isUrl {
+    try {
+      Uri.parse(this);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+}
+
+extension IntValidators on int {
+  bool get isAdultAge => this >= 18;
+  bool get isPositive => this > 0;
+  bool get isEven => this % 2 == 0;
+  bool get isOdd => this % 2 != 0;
+}
+
+void main() {
+  // Penggunaan
+  var email = 'test@example.com';
+  var age = 25;
+  var password = 'Pass1234';
+
+  print(email.isEmail); // true
+  print(age.isAdultAge); // true
+  print(password.isStrongPassword); // true
+  print(10.isEven); // true
+}</pre>
+        </div>
+      </div>
+    </div>
+
+
+      
+    <!-- Slide 14: Ringkasan & Best Practices (halaman 15) -->
+    <div class="slide-card">
+      <div class="slide-header">
+        <div class="slide-title"><span class="slide-num">Slide 14</span> 📌 Ringkasan & Best Practices</div>
         <div class="slide-desc">Panduan penggunaan extension methods</div>
       </div>
       <div class="slide-body">
