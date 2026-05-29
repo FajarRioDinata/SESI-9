@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Extension Methods in Dart - Materi SESI 9 | Fajar Rio Dinata</title>
+    <title>Extension Methods in Dart - SESI 9 | Fajar Rio Dinata</title>
     <!-- Google Fonts & simple reset -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
@@ -14,10 +14,10 @@
         }
 
         body {
-            background: #f1f5f9;
+            background: linear-gradient(145deg, #f7f2ff 0%, #ede4ff 100%);
             font-family: 'Inter', sans-serif;
             line-height: 1.5;
-            color: #0f172a;
+            color: #1e1b2f;
             padding: 2rem 1rem;
         }
 
@@ -26,39 +26,56 @@
             margin: 0 auto;
         }
 
-        /* Header profile */
+        /* Header profile dengan nuansa ungu cerah */
         .profile-header {
-            background: white;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(2px);
             border-radius: 2rem;
-            padding: 1rem 2rem;
+            padding: 1.2rem 2rem;
             margin-bottom: 2rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 20px 35px -10px rgba(106, 13, 173, 0.2);
             display: flex;
             align-items: baseline;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 1rem;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(160, 120, 255, 0.4);
+        }
+        .student-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
         }
         .student-name {
-            font-size: 1.6rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #1e293b, #2d3a4e);
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7c3aed, #c084fc, #a855f7);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
             letter-spacing: -0.3px;
         }
+        .student-nim {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #5b21b6;
+            background: #f0e9ff;
+            display: inline-block;
+            padding: 0.2rem 0.9rem;
+            border-radius: 50px;
+            width: fit-content;
+        }
         .badge-sesi {
-            background: #0f172a;
+            background: #6d28d9;
             color: white;
-            padding: 0.3rem 1rem;
+            padding: 0.4rem 1.2rem;
             border-radius: 40px;
             font-size: 0.85rem;
-            font-weight: 500;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(109, 40, 217, 0.3);
         }
 
-        /* slide grid / cards */
+        /* slide cards dengan aksen ungu */
         .slides-grid {
             display: flex;
             flex-direction: column;
@@ -67,26 +84,28 @@
         .slide-card {
             background: white;
             border-radius: 1.5rem;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 16px 30px -8px rgba(91, 33, 182, 0.12);
             overflow: hidden;
-            transition: transform 0.1s ease, box-shadow 0.2s;
-            border: 1px solid #e9edf2;
+            transition: transform 0.2s ease, box-shadow 0.2s;
+            border: 1px solid #e9d5ff;
         }
         .slide-card:hover {
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 24px 40px -12px rgba(126, 34, 206, 0.25);
+            border-color: #c084fc;
         }
         .slide-header {
-            background: #f8fafc;
+            background: #faf5ff;
             padding: 1rem 1.8rem;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 2px solid #e9d5ff;
             display: flex;
             align-items: center;
             gap: 1rem;
             flex-wrap: wrap;
         }
         .slide-num {
-            font-weight: 700;
-            background: #1e293b;
+            font-weight: 800;
+            background: #8b5cf6;
             color: white;
             width: 2.4rem;
             height: 2.4rem;
@@ -95,21 +114,22 @@
             justify-content: center;
             border-radius: 60px;
             font-size: 1rem;
+            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
         }
         .slide-title {
             font-size: 1.4rem;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: -0.2px;
-            color: #0f172a;
+            color: #4c1d95;
         }
         .slide-content {
             padding: 1.8rem;
         }
 
-        /* code styling */
+        /* code styling nuansa ungu gelap */
         pre {
             background: #0f172a;
-            color: #e2e8f0;
+            color: #f1f5f9;
             padding: 1rem 1.2rem;
             border-radius: 1rem;
             overflow-x: auto;
@@ -119,33 +139,37 @@
             margin: 1.2rem 0;
             white-space: pre-wrap;
             word-break: break-word;
+            border-left: 4px solid #a855f7;
         }
         code {
             font-family: 'SF Mono', monospace;
-            background: #f1f5f9;
+            background: #f3e8ff;
             padding: 0.2rem 0.4rem;
             border-radius: 8px;
             font-size: 0.85rem;
-            color: #0c4a6e;
+            color: #6b21a5;
+            font-weight: 500;
         }
         .highlight {
-            background: #fef9c3;
+            background: #fef08a;
             padding: 0.1rem 0.2rem;
             border-radius: 6px;
+            color: #2d2b3a;
         }
         .info-note {
-            background: #eef2ff;
-            border-left: 5px solid #3b82f6;
+            background: #f3e8ff;
+            border-left: 5px solid #a855f7;
             padding: 0.8rem 1.2rem;
             border-radius: 1rem;
             margin: 1rem 0;
             font-size: 0.9rem;
+            color: #3b0764;
         }
         hr {
             margin: 1rem 0;
             border: 0;
             height: 1px;
-            background: #e2e8f0;
+            background: #e9d5ff;
         }
         .two-columns {
             display: flex;
@@ -157,10 +181,10 @@
             min-width: 200px;
         }
         .badge-best {
-            background: #ecfdf5;
-            color: #065f46;
-            font-weight: 600;
-            padding: 0.2rem 0.7rem;
+            background: #e9d5ff;
+            color: #5b21b6;
+            font-weight: 700;
+            padding: 0.2rem 0.8rem;
             border-radius: 30px;
             display: inline-block;
             font-size: 0.75rem;
@@ -169,9 +193,10 @@
             text-align: center;
             margin-top: 3rem;
             font-size: 0.8rem;
-            color: #475569;
-            border-top: 1px solid #cbd5e1;
+            color: #4c1d95;
+            border-top: 1px solid #d8b4fe;
             padding-top: 1.5rem;
+            font-weight: 500;
         }
         @media (max-width: 640px) {
             .slide-header {
@@ -182,13 +207,22 @@
                 font-size: 1.2rem;
             }
         }
+        .purple-accent {
+            background: #faf5ff;
+        }
+        button, .btn-soft {
+            background: #8b5cf6;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="profile-header">
-        <span class="student-name">📘 Fajar Rio Dinata</span>
-        <span class="badge-sesi">SESI 9: Extension Methods · Dart · 200 menit</span>
+        <div class="student-info">
+            <span class="student-name">✨ Fajar Rio Dinata</span>
+            <span class="student-nim">📌 NIM: 251410025</span>
+        </div>
+        <span class="badge-sesi">🎯 SESI 9: Extension Methods · Dart · 200 menit</span>
     </div>
 
     <div class="slides-grid">
@@ -283,7 +317,7 @@ void main() {
             </div>
         </div>
 
-        <!-- Slide 5 & 6 digabung: Tipe yang Didukung + contoh List<int> -->
+        <!-- Slide 5-6: Tipe yang Didukung + contoh List<int> -->
         <div class="slide-card">
             <div class="slide-header">
                 <span class="slide-num">5-6</span>
@@ -335,7 +369,7 @@ void main() {
             </div>
         </div>
 
-        <!-- Slide 9: Generic Extensions (List<T> advance) -->
+        <!-- Slide 8: Generic Extensions (List<T> advance) -->
         <div class="slide-card">
             <div class="slide-header">
                 <span class="slide-num">8</span>
@@ -370,7 +404,7 @@ void main() {
             </div>
         </div>
 
-        <!-- Slide 10: Extension tanpa nama (library local) -->
+        <!-- Slide 9: Extension tanpa nama (library local) -->
         <div class="slide-card">
             <div class="slide-header">
                 <span class="slide-num">9</span>
@@ -395,7 +429,7 @@ void main() {
             </div>
         </div>
 
-        <!-- Slide 11: Konflik Nama Extension & Resolusi -->
+        <!-- Slide 10: Konflik Nama Extension & Resolusi -->
         <div class="slide-card">
             <div class="slide-header">
                 <span class="slide-num">10</span>
@@ -427,8 +461,7 @@ void main() {
             </div>
         </div>
 
-        <!-- Slide 12+13 biasanya ringkasan dan best practices, kita sajikan langsung pada slide 11 & 12 final -->
-        <!-- Slide 14 Ringkasan + Best Practices -->
+        <!-- Slide 11-12: Ringkasan + Best Practices -->
         <div class="slide-card">
             <div class="slide-header">
                 <span class="slide-num">11-12</span>
@@ -437,7 +470,7 @@ void main() {
             <div class="slide-content">
                 <div class="two-columns">
                     <div class="col">
-                        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">✨ Ringkasan</h3>
+                        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color:#6d28d9;">✨ Ringkasan</h3>
                         <ul style="margin-left: 1.2rem; margin-bottom: 1rem;">
                             <li>Menambah method ke tipe yang ada</li>
                             <li>Sintaks: <code>extension Nama on Type { }</code></li>
@@ -447,7 +480,7 @@ void main() {
                         </ul>
                     </div>
                     <div class="col">
-                        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">📐 Best Practices</h3>
+                        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color:#6d28d9;">📐 Best Practices</h3>
                         <ul style="margin-left: 1.2rem;">
                             <li><span class="badge-best">Nama jelas</span> <code>StringExtensions</code>, <code>DateTimeUtils</code></li>
                             <li><span class="badge-best">Group by type</span> satu file per tipe utama</li>
@@ -473,7 +506,7 @@ void main() {
             </div>
         </div>
 
-        <!-- Slide tambahan penjelasan sintaks & contoh lengkap (mengakomodasi slide 13/14) -->
+        <!-- Slide 13: Studi Kasus Extension Methods Pada Tipe Kustom -->
         <div class="slide-card">
             <div class="slide-header">
                 <span class="slide-num">13</span>
@@ -503,7 +536,7 @@ void main() {
             </div>
         </div>
 
-        <!-- Slide 14: Penutup dan dokumentasi lebih dalam sesuai durasi -->
+        <!-- Slide 14: Penutup dan Implementasi Nyata + Operator overload -->
         <div class="slide-card">
             <div class="slide-header">
                 <span class="slide-num">14</span>
@@ -522,13 +555,13 @@ void main() {
 }</code></pre>
                 <p><strong>Kesimpulan:</strong> Extension methods pada Dart adalah mekanisme modern dan elegan untuk meningkatkan pengalaman developer, menjaga kode tetap bersih tanpa mengorbankan keamanan tipe. Selalu ikuti best practices, dokumentasikan, dan gunakan secara konsisten.</p>
                 <div class="info-note">
-                    🎓 <strong>Fajar Rio Dinata — Sesi 9 Extension Methods</strong> | Total durasi materi: 200 menit. Praktikkan dengan membuat extension untuk <code>List&lt;int&gt;</code> dan <code>DateTime</code>.
+                    🎓 <strong>Fajar Rio Dinata (NIM: 251410025)</strong> — Sesi 9 Extension Methods | Total durasi materi: 200 menit. Praktikkan dengan membuat extension untuk <code>List&lt;int&gt;</code> dan <code>DateTime</code>.
                 </div>
             </div>
         </div>
     </div>
     <footer>
-        📘 Materi berdasarkan slide SESI 9: Extension Methods (Dart) — disusun ulang secara edukatif | Nama: Fajar Rio Dinata
+        🌟 Materi berdasarkan SESI 9: Extension Methods (Dart) — disusun secara edukatif | Nama: Fajar Rio Dinata | NIM: 251410025 | Tema Ungu Cerah
     </footer>
 </div>
 </body>
